@@ -6,7 +6,6 @@ window.fineList = {
 //Ця зміна містить всі дані які в нас зберігаються у файлі data
 let DB = data.finesData;
 
-function searchFines(searchKey){
     /*
      Напишіть свій код тут!
      Як ви бачите функція повертає статичні дані.
@@ -19,9 +18,10 @@ function searchFines(searchKey){
      - Їзда у не тверезому стані
      */
 
+    function searchFines(searchKey) {
+        let results = []
+        results = DB.filter(fine => fine.номер === searchKey || fine.тип === searchKey);
+        return results
+    }
 
-    return [
-        {номер: '001', тип: 'Перевищення швидкості', сума: 100, дата: '2023-01-15'}
-    ];
-}
-
+    // можна дописати логіку, якщо юзер залишив поля пустими і клікає на кнопку [Пошук штрафів], ми повертаємо весь масив 
