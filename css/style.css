@@ -169,4 +169,12 @@ button[type="submit"]:hover {
     background-color: #3aa200;
 }
 
+#numberValidationMessage,
+#typeValidationMessage {
+    display: block; /* Ensures each message is on a new line */
+    margin-top: 6px; /* Adjust as needed */
+    color: red; /* or any other color */
+    font-size: 12px; /* Adjust as needed */
+    margin-bottom: 6px;
+}
 

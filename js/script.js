@@ -57,5 +57,5 @@ searchFines.addEventListener('click', () => {
     if (number == "" && fineType == "")
         searchData = "";
 
-    populateFinesTable(fineList.searchFines(searchData));
+    populateFinesTable(fineList.searchFines(number, fineType));
 })

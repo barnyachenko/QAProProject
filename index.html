@@ -15,11 +15,23 @@
     <button id="paymentsBtn">Оплата штрафів</button>
     <div class="content" id="penalties">
         <h2>Список штрафів</h2>
-        <div class="search-container">
+
+        <!-- <div class="search-container">
                 <input type="text" id="searchInput2" placeholder="Пошук за номером">
                 <input type="text" id="searchInput" placeholder="Пошук за типом штрафу">
                 <button id="searchBtn">Пошук штрафів</button>
+        </div> -->
+
+        <div class="search-container">
+            <input type="text" id="searchInput2" placeholder="Пошук за номером">
+            <span id="numberValidationMessage"></span>
+            
+            <input type="text" id="searchInput" placeholder="Пошук за типом штрафу">
+            <span id="typeValidationMessage"></span>
+        
+            <button id="searchBtn">Пошук штрафів</button>
         </div>
+
         <table>
             <thead>
             <tr>
