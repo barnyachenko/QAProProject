@@ -20,8 +20,10 @@ let DB = data.finesData;
 
     function searchFines(searchKey) {
         let results = []
-        results = DB.filter(fine => fine.номер === searchKey || fine.тип === searchKey);
-        return results
+        if (searchKey != null && searchKey.trim() === "") {
+            return DB
+        } else {
+            results = DB.filter(fine => fine.номер === searchKey || fine.тип === searchKey);
+            return results
+        }
     }
-
-    // можна дописати логіку, якщо юзер залишив поля пустими і клікає на кнопку [Пошук штрафів], ми повертаємо весь масив 
