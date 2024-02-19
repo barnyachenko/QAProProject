@@ -22,37 +22,66 @@ let patternSum = /^\d+(\.\d{1,2})?$/; // potential for decimal sum too
 
 buttonSubmit.addEventListener('click', payFine);
 
+function displayValidationMessage(inputId, message) {
+    const validationMessageElement = document.getElementById(`${inputId}ValidationMessage`);
+    if (validationMessageElement) {
+        validationMessageElement.textContent = message;
+    } else {
+        console.error(`Validation message element with ID ${inputId}ValidationMessage not found.`);
+    }
+}
+
+function clearValidationMessages() {
+    document.getElementById('fineNumberValidationMessage').textContent = '';
+    document.getElementById('passportValidationMessage').textContent = '';
+    document.getElementById('creditCardNumberValidationMessage').textContent = '';
+    document.getElementById('cvvValidationMessage').textContent = '';
+    document.getElementById('amountValidationMessage').textContent = ''
+}
+
 function payFine() {
+    clearValidationMessages();
+    let num = fineNumber.value.trim();
+    if (num.length <= 3) {
+        let paddedNumber = num.padStart(3, '0');
+        fineNumber.value = paddedNumber; // Оновлення значення введеного номера
+    }
 const penalty = DB.find(function(item){
     return item.номер === fineNumber.value}); 
 
     if (!patternFNumber.test(fineNumber.value)) {
-        alert("Номер не відповідає формату");
+        //alert("Номер не відповідає формату");
+        displayValidationMessage('fineNumber', "Номер штрафу може бути тільки числом 1-999.");
+        return false;
+    }
+
+    if (!patternPassport.test(passport.value)) {
+        //alert("Паспорт не відповідає формату");
+        displayValidationMessage('passport', "Паспортні дані у форматі: перші дві літери українського алфавіту та 6 цифр.");
+        return false;
+    }
+
+    if (!patternCard.test(creditCardNumber.value)) {
+        //alert("Карта не відповідає формату");
+        displayValidationMessage('creditCardNumber', "Номер кредитної картки 16 цифр.");
+        return false;
+    }
+
+    if (!patternCVV.test(cvv.value)) {
+        //alert("CVV не відповідає формату");
+        displayValidationMessage('cvv', "Номер CVV-коду може бути 3-4 значним числом.");
         return false;
     }
 
      if (!patternSum.test(amount.value)) {
-        alert("Сума не відповідає формату");
-        return false;
-    }
-
-     if (!patternPassport.test(passport.value)) {
-        alert("Паспорт не відповідає формату");
-        return false;
-    }
-
-     if (!patternCard.test(creditCardNumber.value)) {
-        alert("Карта не відповідає формату");
-        return false;
-    }
-
-     if (!patternCVV.test(cvv.value)) {
-        alert("CVV не відповідає формату");
+        //alert("Сума не відповідає формату");
+        displayValidationMessage('amount', "Сума штрафу може бути тільки числом.");
         return false;
     }
 
     if (!penalty) {
-        alert("Такого штрафу не існує");
+        //alert("Такого штрафу не існує");
+        displayValidationMessage('fineNumber', "Введіть номер існуючого штрафу.");
         return false;
     }
     console.log("1",typeof amount.value);
@@ -61,17 +90,24 @@ const penalty = DB.find(function(item){
     console.log("4", penalty.сума);
 
     if(amount.value != penalty.сума){ 
-        alert("Сума не співпадає штрафу");
+        //alert("Сума не співпадає штрафу");
+        displayValidationMessage('amount', "Сума штрафу повинна збігатися із сумою вказаного штрафу.");
         return false;
     }
+
+    clearValidationMessages();
+
     const newDB = DB.filter(function(item){
         return item.номер !== penalty.номер
     })
-    alert("Ваш штраф оплачено!");
-    
+
+    setTimeout( () => alert("Ваш штраф оплачено!"), 0);
+
     window.data = {
         finesData: newDB
     }
+
+    return true;
 }
 
 /**

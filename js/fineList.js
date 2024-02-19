@@ -40,11 +40,11 @@ let DB = data.finesData;
                     results = DB.filter(fine => fine.номер === paddedNumber);
                     return results;
                 } else {
-                    displayValidationMessage('number', "Номер штрафу повинен мати не більше трьохзначного числа.");
+                    displayValidationMessage('number', "Номер штрафу може бути тільки числом 1-999.");
                     return [];
                 }
             } else {
-                displayValidationMessage('number', "Введено невірний формат для номера штрафу.");
+                displayValidationMessage('number', "Номер штрафу може бути тільки числом 1-999.");
                 return [];
             }
         }
@@ -56,7 +56,7 @@ let DB = data.finesData;
                 results = DB.filter(fine => fine.тип === type);
                 return results;
             } else {
-                displayValidationMessage('type', "Введено невірний тип штрафу.");
+                displayValidationMessage('type', "Оберіть існуючий тип штрафу - Перевищення швидкості/Невірне паркування/Їзда у не тверезому стані.");
                 return [];
             }
         }

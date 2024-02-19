@@ -170,7 +170,12 @@ button[type="submit"]:hover {
 }
 
 #numberValidationMessage,
-#typeValidationMessage {
+#typeValidationMessage,
+#fineNumberValidationMessage,
+#passportValidationMessage,
+#creditCardNumberValidationMessage,
+#cvvValidationMessage,
+#amountValidationMessage {
     display: block; 
     margin-top: 6px;
     color: red; 
