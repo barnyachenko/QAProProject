@@ -14,6 +14,66 @@ let buttonSubmit = document.getElementById("payFine");
 //Ця зміна містить всі дані які в нас зберігаються у файлі data
 let DB = data.finesData;
 
+let patternFNumber = /^[0-9]{3}$/;
+let patternPassport = /^[А-ЯҐЄІЇ]{2}[0-9]{6}$/;
+let patternCard = /^(\d[ -]*?){16}$/;
+let patternCVV = /^\d{3,4}$/; // 4 for American Express
+let patternSum = /^\d+(\.\d{1,2})?$/; // potential for decimal sum too
+
+buttonSubmit.addEventListener('click', payFine);
+
+function payFine() {
+const penalty = DB.find(function(item){
+    return item.номер === fineNumber.value}); 
+
+    if (!patternFNumber.test(fineNumber.value)) {
+        alert("Номер не відповідає формату");
+        return false;
+    }
+
+     if (!patternSum.test(amount.value)) {
+        alert("Сума не відповідає формату");
+        return false;
+    }
+
+     if (!patternPassport.test(passport.value)) {
+        alert("Паспорт не відповідає формату");
+        return false;
+    }
+
+     if (!patternCard.test(creditCardNumber.value)) {
+        alert("Карта не відповідає формату");
+        return false;
+    }
+
+     if (!patternCVV.test(cvv.value)) {
+        alert("CVV не відповідає формату");
+        return false;
+    }
+
+    if (!penalty) {
+        alert("Такого штрафу не існує");
+        return false;
+    }
+    console.log("1",typeof amount.value);
+    console.log("2",typeof penalty.сума);
+    console.log("3", amount.value);
+    console.log("4", penalty.сума);
+
+    if(amount.value != penalty.сума){ 
+        alert("Сума не співпадає штрафу");
+        return false;
+    }
+    const newDB = DB.filter(function(item){
+        return item.номер !== penalty.номер
+    })
+    alert("Ваш штраф оплачено!");
+    
+    window.data = {
+        finesData: newDB
+    }
+}
+
 /**
 Вам необхідно реалізувати наступний функціонал.
 Зробити валідацію до всіх полів

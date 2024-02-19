@@ -171,10 +171,10 @@ button[type="submit"]:hover {
 
 #numberValidationMessage,
 #typeValidationMessage {
-    display: block; /* Ensures each message is on a new line */
-    margin-top: 6px; /* Adjust as needed */
-    color: red; /* or any other color */
-    font-size: 12px; /* Adjust as needed */
+    display: block; 
+    margin-top: 6px;
+    color: red; 
+    font-size: 12px;
     margin-bottom: 6px;
 }
 
